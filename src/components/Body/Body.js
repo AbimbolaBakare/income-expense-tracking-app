@@ -4,6 +4,7 @@ import { NewForm } from './Form/Form';
 import { History } from './History/History';
 
 export const Body = ({ title }) => {
+
     return (
         <Card className='main-card'>
             <Card.Body>
@@ -12,9 +13,9 @@ export const Body = ({ title }) => {
                     <h5 className='text-center mt-3'>
                         Total balance: $100
                     </h5>
-                    <p className='sub-text text-center'>
+                    {/* <p className='sub-text text-center'>
                         Try saying : Add income for $100 in category salary for Monday
-                    </p>
+                    </p> */}
                     <hr style={{ backgroundColor: "white" }} />
                     <NewForm />
                 </div>

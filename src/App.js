@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Main from "./Main";
 import { Login } from "./Login";
-import { AuthProvider } from "./Authentication";
+import { ContextProvider } from "./context/context";
 import PrivateRoute from "./PrivateRoute";
 
 
@@ -10,14 +10,14 @@ import PrivateRoute from "./PrivateRoute";
 function App() {
 
     return (
-        <AuthProvider>
+        <ContextProvider>
             <Router>
                 <div>
                     <Route exact path="/" component={Login} />
                     <PrivateRoute exact path="/home" component={Main} />
                 </div>
             </Router>
-        </AuthProvider>
+        </ContextProvider>
 
 
     );

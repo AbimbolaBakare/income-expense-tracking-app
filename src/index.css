@@ -36,7 +36,7 @@ html {
 }
 
 .list {
-    max-height: 150px;
+    max-height: 120px;
     overflow: auto;
     color: #000 !important;
 }

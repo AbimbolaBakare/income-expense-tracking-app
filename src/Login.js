@@ -1,31 +1,54 @@
-import React, { useCallback, useContext } from 'react';
-import config from "./service/firebase.js";
+import React, {useContext } from 'react';
+import config, { db } from "./service/firebase.js";
 import firebase from "firebase/app";
 import { Redirect } from "react-router";
-import { AuthContext } from './Authentication.js';
+import { AppContext } from './context/context.js';
 import { useToasts } from 'react-toast-notifications';
 
 
 
 export const Login = ({ history }) => {
     const { addToast } = useToasts();
+    const { currentUser } = useContext(AppContext);
+
+
+ const generateUserDocument = async (user) => {
+        if (!user) return;
+        const userRef = db.doc(`Users/${user.uid}`);
+        const snapshot = await userRef.get();
+        if (!snapshot.exists) {
+          try {
+            await userRef.set(user);
+          } catch (error) {
+            console.error("Error creating user document", error);
+          }
+        }
+    }
 
     const provider = new firebase.auth.GoogleAuthProvider();
 
-    const signInWithGoogle = useCallback(async event => {
+    async function signInWithGoogle() {
         try {
-            await config.auth().signInWithPopup(provider);
+            const newUser = await config.auth().signInWithPopup(provider);
+            addToast('Login successful', { appearance: 'success', autoDismiss: true })
+            const user = {
+                name: newUser.user.displayName,
+                uid: newUser.user.uid,
+                email: newUser.user.email,
+                photo: newUser.user.photoURL
+            }
+            generateUserDocument(user)
 
-            addToast('Login successful', { appearance: 'success',  autoDismiss: true})
+
             history.push("/home");
         } catch (error) {
+            console.log(error)
             addToast(error.message, { appearance: 'error' })
         }
-    }, [history]);
+    }
 
 
 
-    const { currentUser } = useContext(AuthContext);
     if (currentUser) {
         return <Redirect to="/home" />;
     }
