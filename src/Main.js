@@ -34,27 +34,33 @@ function Main() {
 
     return (
         <Container fluid >
-            <Row className=' align-items-center'>
-                <Col lg='6' className='text-left'>
-                    <img src={currentUser.photoURL} alt='user' />
-                </Col>
-                <Col lg='6' className='text-right '>
+            <Row className=' align-items-center mt-5'>
+                <Col lg='12' className='text-right '>
                     <div >
                         <Button onClick={logout} >LOGOUT</Button>
                     </div>
                 </Col>
+
+                <Col lg='6' className='text-left mt-3'>
+                    <h5 className='font-weight-bolder'>Welcome, {currentUser.displayName}</h5>
+                </Col>
+
+                <Col lg='6' className='text-right mt-5'>
+                    <img src={currentUser.photoURL} alt='user' className='img-fluid' />
+                </Col>
+
             </Row>
 
 
             <Row className='align-items-center' >
-                <Col xs={12} sm={12} lg={4} className=''>
-                    <TransactionInfo title='Income' />
+                <Col xs={12} sm={12} lg={4} className='mb-5 mt-3'>
+                    <TransactionInfo title='income' />
                 </Col>
-                <Col xs={12} sm={12} lg={4} className=''>
-                    <Body title='EXPENSE TRACKER'  />
+                <Col xs={12} sm={12} lg={4} className='mb-5 mt-3'>
+                    <Body title='INCOME-EXPENSE TRACKER' />
                 </Col>
-                <Col xs={12} sm={12} lg={4} className=''>
-                    <TransactionInfo title='Expenses' />
+                <Col xs={12} sm={12} lg={4} className='mb-5 mt-3'>
+                    <TransactionInfo title='expense' />
                 </Col>
             </Row>
         </Container>

@@ -10,12 +10,6 @@ export const Body = ({ title }) => {
             <Card.Body>
                 <Card.Title className='text-center'>{title}</Card.Title>
                 <div>
-                    <h5 className='text-center mt-3'>
-                        Total balance: $100
-                    </h5>
-                    {/* <p className='sub-text text-center'>
-                        Try saying : Add income for $100 in category salary for Monday
-                    </p> */}
                     <hr style={{ backgroundColor: "white" }} />
                     <NewForm />
                 </div>
