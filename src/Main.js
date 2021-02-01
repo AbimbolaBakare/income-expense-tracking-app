@@ -1,51 +1,44 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useToasts } from 'react-toast-notifications';
 import { AppContext } from './context/context';
 import { Body } from './components/Body/Body';
 import TransactionInfo from './components/TransactionInfo/TransactionInfo';
-import config, { db } from './service/firebase';
+import config from './service/firebase';
 
 function Main() {
     const { addToast } = useToasts();
     const { currentUser } = useContext(AppContext);
-    const [user, setUser] = useState({});
 
     function logout() {
         config.auth().signOut()
         addToast('Logout successful', { appearance: 'success', autoDismiss: true })
     };
 
-    const uid = currentUser.uid
-
-    async function getUserDocument() {
-        if (!uid) return null;
-        try {
-            const userDocument = await db.doc(`Users/${uid}`).get();
-            setUser(userDocument.data())
-        } catch (error) {
-            console.error("Error fetching user", error);
-        }
-    };
-
-    useEffect(() => {
-        getUserDocument();
-    }, []);
-
     return (
         <Container fluid >
-            <Row className=' align-items-center mt-5'>
-                <Col lg='12' className='text-right '>
-                    <div >
-                        <Button onClick={logout} >LOGOUT</Button>
-                    </div>
+            <Row className='align-items-center'>
+                <Col lg='6' sm='6' xs='6' className='text-left mt-5 font-weight-bolder'>
+                    <a href='https://github.com/AbimbolaBakare/income-expense-tracking-app'
+                        target="_blank" rel="noopener noreferrer">
+                        <img src='/git.png' width='50' className='img-fluid' /> Github link
+                    </a>
+
+                </Col>
+                <Col lg='6' sm='6' xs='6' className='text-right '>
+
+                    <Button onClick={logout} >LOGOUT</Button>
+
                 </Col>
 
-                <Col lg='6' className='text-left mt-3'>
+            </Row>
+
+            <Row className=' align-items-center'>
+                <Col lg='6' sm='8' xs='8' className='text-left mt-3'>
                     <h5 className='font-weight-bolder'>Welcome, {currentUser.displayName}</h5>
                 </Col>
 
-                <Col lg='6' className='text-right mt-5'>
+                <Col lg='6' sm='4' xs='4' className='text-right mt-5'>
                     <img src={currentUser.photoURL} alt='user' className='img-fluid' />
                 </Col>
 
